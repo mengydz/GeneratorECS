@@ -1,12 +1,6 @@
 --cpu=Cortex-M4.fp.sp
 "generator\startup_stm32f415xx.o"
 "generator\main.o"
-"generator\gpio.o"
-"generator\adc.o"
-"generator\dma.o"
-"generator\sdio.o"
-"generator\tim.o"
-"generator\usart.o"
 "generator\stm32f4xx_it.o"
 "generator\stm32f4xx_hal_msp.o"
 "generator\user_diskio.o"
@@ -36,6 +30,12 @@
 "generator\ff.o"
 "generator\ff_gen_drv.o"
 "generator\syscall.o"
+"generator\adc.o"
+"generator\dma.o"
+"generator\gpio.o"
+"generator\sdio.o"
+"generator\tim.o"
+"generator\usart.o"
 --library_type=microlib --strict --scatter "generator\generator.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
