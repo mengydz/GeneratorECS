@@ -29,7 +29,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-uint32_t ADC_Value[6];
+uint32_t ADC_Value[5];
 
 /* USER CODE END Includes */
 
@@ -68,7 +68,6 @@ void SystemClock_Config(void);
   * @brief  The application entry point.
   * @retval int
   */
-  uint8_t flag=0,cnt=100;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -95,7 +94,7 @@ int main(void)
 	MX_GPIO_Init();
 	MX_DMA_Init();
 	MX_ADC1_Init();
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 3);
+	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 5);
 
 	MX_USART2_UART_Init();
 //  MX_SDIO_MMC_Init();
@@ -120,19 +119,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	HAL_Delay(10);
-	if(flag)
-	{
-	  cnt--;
-	}
-	else
-	{
-	  cnt++;
-	}
-	if(cnt==200)
-	  flag=1;
-	else if(cnt==100)
-	  flag=0;
-	TIM3->CCR1 = cnt;
   }
   /* USER CODE END 3 */
 }
