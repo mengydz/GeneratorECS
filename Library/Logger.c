@@ -5,7 +5,7 @@
 #include <entry.h>
 #endif
 
-#define LOG_FILE_NAME "log.bin"
+#define LOG_FILE_NAME "log1.bin"
 
 FATFS fs;
 FATFS *pfs;
@@ -57,13 +57,14 @@ uint8_t Write_Format(const struct LogStructure *s);
 	
 uint8_t WriteBlock(const void *pBuffer, uint16_t size)
 {
-  /* Mount SD Card */
-  if(f_mount(&fs, "", 0) != FR_OK)
-    return 1;
 
-  /* Open file to write */
-  if(f_open(&fil, LOG_FILE_NAME, FA_OPEN_APPEND | FA_WRITE) != FR_OK)
-    return 2;
+//	/* Mount SD Card */
+//  if(f_mount(&fs, "", 0) != FR_OK)
+//    return 1;
+
+//  /* Open file to write */
+//  if(f_open(&fil, LOG_FILE_NAME, FA_OPEN_APPEND | FA_WRITE) != FR_OK)
+//    return 2;
 
   /* Check freeSpace space */
   if(f_getfree("", &fre_clust, &pfs) != FR_OK)
@@ -78,14 +79,14 @@ uint8_t WriteBlock(const void *pBuffer, uint16_t size)
 
   /* Writing*/
   f_write (&fil, pBuffer, size, &bw);
+  f_sync(&fil);
+//  /* Close file */
+//  if(f_close(&fil) != FR_OK)
+//    return 5;
 
-  /* Close file */
-  if(f_close(&fil) != FR_OK)
-    return 5;
-
-  /* Unmount SDCARD */
-  if(f_mount(NULL, "", 1) != FR_OK)
-    return 6;
+//  /* Unmount SDCARD */
+//  if(f_mount(NULL, "", 1) != FR_OK)
+//    return 6;
 
   return 0;
 }
@@ -110,14 +111,14 @@ void Log_Init(void)
  
   if(f_mount(&fs, "", 0) != FR_OK)
     return;
-  res = f_open(&fil, LOG_FILE_NAME, FA_CREATE_NEW | FA_WRITE); 
+  res = f_open(&fil, LOG_FILE_NAME, FA_CREATE_ALWAYS | FA_WRITE); 
   if(res == FR_OK){
-    f_close(&fil);
+//    f_close(&fil);
   } else if(res == FR_EXIST){
-    f_unlink(LOG_FILE_NAME);
+//    f_unlink(LOG_FILE_NAME);
   }
-  if(f_mount(NULL, "", 1) != FR_OK)
-    return;
+//  if(f_mount(NULL, "", 1) != FR_OK)
+//    return;
   
   for(i = 0; i < ARRAY_SIZE(log_structure); i++) 
   {
