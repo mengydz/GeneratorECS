@@ -27,10 +27,11 @@
 #include "usart.h"
 #include "gpio.h"
 #include "exit.h"
-
+#include "logger.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 uint32_t ADC_Value[5];
+uint32_t loop_idx20ms=0;
 uint32_t loop_idx500ms=0;
 /* USER CODE END Includes */
 
@@ -99,17 +100,17 @@ int main(void)
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 5);
 
 	MX_USART2_UART_Init();
-//	MX_SDIO_MMC_Init();
-//	MX_FATFS_Init();
+	MX_SDIO_SD_Init();
+	MX_FATFS_Init();
+	Log_Init();
+	CDI_POWER_ENABLE;
 	MX_TIM3_Init();
 	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
-	TIM3->CCR1 = 150;
-	MX_TIM7_Init();
-	HAL_TIM_Base_Start_IT(&htim7);//启动时间戳定时器
-	CDI_POWER_ENABLE;
 //	MX_TIM5_Init();
 	MX_TIM6_Init();
 	HAL_TIM_Base_Start_IT(&htim6);
+	MX_TIM7_Init();
+	HAL_TIM_Base_Start_IT(&htim7);//启动时间戳定时器
 	/* USER CODE BEGIN 2 */
 
 	/* USER CODE END 2 */
@@ -119,13 +120,19 @@ int main(void)
 	while (1)
 	{
 		while(Wait_processing(1000));
-//		Main_loop_1MS_First();				 
+//		Main_loop_1MS_First();
+		loop_idx20ms++;
+		if(loop_idx20ms>=20) 					 		//主循环周期为400HZ，分频可以得到各运行周期的轮询函数。
+		{
+			loop_idx20ms=0;
+			Write_Test(GetMicros(),GetMicros());		
+		}////////////////////////////////////////   //200HZ	 
 		loop_idx500ms++;
 		if(loop_idx500ms>=500) 					 		//主循环周期为400HZ，分频可以得到各运行周期的轮询函数。
 		{
 			loop_idx500ms=0;
 			HAL_GPIO_TogglePin(GPIOB, BLUE_Pin|GREED_Pin|RED_Pin);
-//			Main_loop_10MS_First();  
+//			Main_loop_500MS_First();  
 		}////////////////////////////////////////   //200HZ	 
 	}
 	/* USER CODE END 3 */

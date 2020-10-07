@@ -60,7 +60,7 @@ extern DMA_HandleTypeDef hdma_adc1;
 extern ADC_HandleTypeDef hadc1;
 extern DMA_HandleTypeDef hdma_sdio_rx;
 extern DMA_HandleTypeDef hdma_sdio_tx;
-extern MMC_HandleTypeDef hmmc;
+extern SD_HandleTypeDef hsd;
 extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim7;
@@ -269,7 +269,7 @@ void SDIO_IRQHandler(void)
   /* USER CODE BEGIN SDIO_IRQn 0 */
 
   /* USER CODE END SDIO_IRQn 0 */
-  HAL_MMC_IRQHandler(&hmmc);
+  HAL_SD_IRQHandler(&hsd);
   /* USER CODE BEGIN SDIO_IRQn 1 */
 
   /* USER CODE END SDIO_IRQn 1 */

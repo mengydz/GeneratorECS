@@ -25,6 +25,7 @@
 /-----------------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "bsp_driver_sd.h"
 
 /*-----------------------------------------------------------------------------/
 / Function Configurations
@@ -81,7 +82,7 @@
 / Locale and Namespace Configurations
 /-----------------------------------------------------------------------------*/
 
-#define _CODE_PAGE         850
+#define _CODE_PAGE         936
 /* This option specifies the OEM code page to be used on the target system.
 /  Incorrect setting of the code page can cause a file open failure.
 /
@@ -109,7 +110,7 @@
 /   950 - Traditional Chinese (DBCS)
 */
 
-#define _USE_LFN     0    /* 0 to 3 */
+#define _USE_LFN     2    /* 0 to 3 */
 #define _MAX_LFN     255  /* Maximum LFN length to handle (12 to 255) */
 /* The _USE_LFN switches the support of long file name (LFN).
 /

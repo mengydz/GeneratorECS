@@ -396,37 +396,37 @@
             <File>
               <FileName>adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Peripheral\adc.c</FilePath>
+              <FilePath>..\..\GeneratorECS\Peripheral\adc.c</FilePath>
             </File>
             <File>
               <FileName>dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Peripheral\dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Peripheral\gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>sdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Peripheral\sdio.c</FilePath>
-            </File>
-            <File>
-              <FileName>tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Peripheral\tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Peripheral\usart.c</FilePath>
+              <FilePath>..\..\GeneratorECS\Peripheral\dma.c</FilePath>
             </File>
             <File>
               <FileName>exit.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Peripheral\exit.c</FilePath>
+              <FilePath>..\..\GeneratorECS\Peripheral\exit.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\GeneratorECS\Peripheral\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>sdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\GeneratorECS\Peripheral\sdio.c</FilePath>
+            </File>
+            <File>
+              <FileName>tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\GeneratorECS\Peripheral\tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\GeneratorECS\Peripheral\usart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -448,6 +448,11 @@
               <FileType>1</FileType>
               <FilePath>..\Library\my_math.c</FilePath>
             </File>
+            <File>
+              <FileName>Logger.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\Logger.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -467,16 +472,6 @@
               <FileName>stm32f4xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Application/User/FATFS/Target</GroupName>
-          <Files>
-            <File>
-              <FileName>user_diskio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../FATFS/Target/user_diskio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -574,9 +569,9 @@
               <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_mmc.c</FileName>
+              <FileName>stm32f4xx_hal_sd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_mmc.c</FilePath>
+              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_tim.c</FileName>
@@ -627,6 +622,31 @@
               <FileName>syscall.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Middlewares/Third_Party/FatFs/src/option/syscall.c</FilePath>
+            </File>
+            <File>
+              <FileName>cc936.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/Third_Party/FatFs/src/option/cc936.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Application/User/FATFS/Target</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp_driver_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../FATFS/Target/bsp_driver_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>sd_diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../FATFS/Target/sd_diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>fatfs_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../FATFS/Target/fatfs_platform.c</FilePath>
             </File>
           </Files>
         </Group>
