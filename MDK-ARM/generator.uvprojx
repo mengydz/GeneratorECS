@@ -607,6 +607,29 @@
         </Group>
         <Group>
           <GroupName>Library</GroupName>
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+          <Files>
+            <File>
+              <FileName>common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>F:\Desktop\GeneratorECS\Library\common.c</FilePath>
+            </File>
+            <File>
+              <FileName>fifo_buffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>F:\Desktop\GeneratorECS\Library\fifo_buffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>my_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>F:\Desktop\GeneratorECS\Library\my_math.c</FilePath>
+            </File>
+          </Files>
+=======
+>>>>>>> main
+>>>>>>> Stashed changes
         </Group>
         <Group>
           <GroupName>Peripheral</GroupName>

@@ -863,6 +863,53 @@ Section Cross References
     usart.o(i.MX_USART2_UART_Init) refers to stm32f4xx_hal_uart.o(i.HAL_UART_Init) for HAL_UART_Init
     usart.o(i.MX_USART2_UART_Init) refers to main.o(i.Error_Handler) for Error_Handler
     usart.o(i.MX_USART2_UART_Init) refers to usart.o(.bss) for .bss
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    fifo_buffer.o(i.fifoBuf_getByte) refers to fifo_buffer.o(i.fifoBuf_getUsed) for fifoBuf_getUsed
+    fifo_buffer.o(i.fifoBuf_getBytePeek) refers to fifo_buffer.o(i.fifoBuf_getUsed) for fifoBuf_getUsed
+    fifo_buffer.o(i.fifoBuf_getData) refers to fifo_buffer.o(i.fifoBuf_getUsed) for fifoBuf_getUsed
+    fifo_buffer.o(i.fifoBuf_getData) refers to memcpya.o(.text) for __aeabi_memcpy
+    fifo_buffer.o(i.fifoBuf_getDataPeek) refers to fifo_buffer.o(i.fifoBuf_getUsed) for fifoBuf_getUsed
+    fifo_buffer.o(i.fifoBuf_getDataPeek) refers to memcpya.o(.text) for __aeabi_memcpy
+    fifo_buffer.o(i.fifoBuf_getFree) refers to fifo_buffer.o(i.fifoBuf_getUsed) for fifoBuf_getUsed
+    fifo_buffer.o(i.fifoBuf_putByte) refers to fifo_buffer.o(i.fifoBuf_getFree) for fifoBuf_getFree
+    fifo_buffer.o(i.fifoBuf_putData) refers to fifo_buffer.o(i.fifoBuf_getFree) for fifoBuf_getFree
+    fifo_buffer.o(i.fifoBuf_putData) refers to memcpya.o(.text) for __aeabi_memcpy
+    fifo_buffer.o(i.fifoBuf_removeData) refers to fifo_buffer.o(i.fifoBuf_getUsed) for fifoBuf_getUsed
+    my_math.o(i.LSM_Output) refers to f2d.o(.text) for __aeabi_f2d
+    my_math.o(i.LSM_Output) refers to sqrt.o(i.__hardfp_sqrt) for __hardfp_sqrt
+    my_math.o(i.LSM_Output) refers to ddiv.o(.text) for __aeabi_ddiv
+    my_math.o(i.LSM_Output) refers to d2f.o(.text) for __aeabi_d2f
+    my_math.o(i.SimpleRCLowPassFilter_100hz) refers to my_math.o(i.RCLowPass) for RCLowPass
+    my_math.o(i.SimpleRCLowPassFilter_10hz) refers to my_math.o(i.RCLowPass) for RCLowPass
+    my_math.o(i.SimpleRCLowPassFilter_1hz) refers to my_math.o(i.RCLowPass) for RCLowPass
+    my_math.o(i.SimpleRCLowPassFilter_200hz) refers to my_math.o(i.RCLowPass) for RCLowPass
+    my_math.o(i.SimpleRCLowPassFilter_2hz) refers to my_math.o(i.RCLowPass) for RCLowPass
+    sqrt.o(i.__hardfp_sqrt) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt.o(i.__hardfp_sqrt) refers to dsqrt.o(.text) for _dsqrt
+    sqrt.o(i.__hardfp_sqrt) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt.o(i.__softfp_sqrt) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt.o(i.__softfp_sqrt) refers to dsqrt.o(.text) for _dsqrt
+    sqrt.o(i.__softfp_sqrt) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt.o(i.sqrt) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt.o(i.sqrt) refers to dsqrt.o(.text) for _dsqrt
+    sqrt.o(i.sqrt) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt_x.o(i.____hardfp_sqrt$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt_x.o(i.____hardfp_sqrt$lsc) refers to cdcmple.o(.text) for __aeabi_cdcmple
+    sqrt_x.o(i.____hardfp_sqrt$lsc) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt_x.o(i.____hardfp_sqrt$lsc) refers to dsqrt.o(.text) for _dsqrt
+    sqrt_x.o(i.____softfp_sqrt$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt_x.o(i.____softfp_sqrt$lsc) refers to cdcmple.o(.text) for __aeabi_cdcmple
+    sqrt_x.o(i.____softfp_sqrt$lsc) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt_x.o(i.____softfp_sqrt$lsc) refers to dsqrt.o(.text) for _dsqrt
+    sqrt_x.o(i.__sqrt$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt_x.o(i.__sqrt$lsc) refers to cdcmple.o(.text) for __aeabi_cdcmple
+    sqrt_x.o(i.__sqrt$lsc) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt_x.o(i.__sqrt$lsc) refers to dsqrt.o(.text) for _dsqrt
+=======
+>>>>>>> main
+>>>>>>> Stashed changes
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
@@ -872,6 +919,17 @@ Section Cross References
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
     uldiv.o(.text) refers to llushr.o(.text) for __aeabi_llsr
     uldiv.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    ddiv.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    ddiv.o(.text) refers to depilogue.o(.text) for _double_round
+    f2d.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    d2f.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    d2f.o(.text) refers to fepilogue.o(.text) for _float_round
+=======
+>>>>>>> main
+>>>>>>> Stashed changes
     entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
     entry2.o(.ARM.Collect$$$$00002712) refers to startup_stm32f415xx.o(STACK) for __initial_sp
     entry2.o(__vectab_stack_and_reset_area) refers to startup_stm32f415xx.o(STACK) for __initial_sp
@@ -879,6 +937,19 @@ Section Cross References
     entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
     entry9a.o(.ARM.Collect$$$$0000000B) refers to main.o(i.main) for main
     entry9b.o(.ARM.Collect$$$$0000000C) refers to main.o(i.main) for main
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    errno.o(i.__aeabi_errno_addr) refers to errno.o(.data) for .data
+    errno.o(i.__read_errno) refers to errno.o(.data) for .data
+    errno.o(i.__set_errno) refers to errno.o(.data) for .data
+    depilogue.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    depilogue.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    dsqrt.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    dsqrt.o(.text) refers to depilogue.o(.text) for _double_round
+=======
+>>>>>>> main
+>>>>>>> Stashed changes
     init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
 
 
@@ -1453,8 +1524,54 @@ Removing Unused input sections from the image.
     Removing usart.o(.revsh_text), (4 bytes).
     Removing usart.o(.rrx_text), (6 bytes).
     Removing usart.o(i.HAL_UART_MspDeInit), (52 bytes).
+<<<<<<< Updated upstream
 
 567 unused section(s) (total 57106 bytes) removed from the image.
+=======
+<<<<<<< HEAD
+    Removing fifo_buffer.o(i.fifoBuf_clearData), (6 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_flush), (8 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_getByte), (40 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_getBytePeek), (24 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_getData), (102 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_getDataPeek), (94 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_getFree), (14 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_getSize), (4 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_getUsed), (30 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_init), (12 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_putByte), (44 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_putData), (102 bytes).
+    Removing fifo_buffer.o(i.fifoBuf_removeData), (40 bytes).
+    Removing my_math.o(i.BigToLittle), (44 bytes).
+    Removing my_math.o(i.Calc_Deadband), (48 bytes).
+    Removing my_math.o(i.CalculateCheckSumByte), (26 bytes).
+    Removing my_math.o(i.CalculateCheckSumScheduler), (30 bytes).
+    Removing my_math.o(i.CalculateCheckSumWord), (26 bytes).
+    Removing my_math.o(i.DecodeAscii), (60 bytes).
+    Removing my_math.o(i.EncodeAscii), (62 bytes).
+    Removing my_math.o(i.LSM_Output), (172 bytes).
+    Removing my_math.o(i.LSM_Plus), (66 bytes).
+    Removing my_math.o(i.MaxMinLimit), (30 bytes).
+    Removing my_math.o(i.RCLowPass), (46 bytes).
+    Removing my_math.o(i.SimpleRCLowPassFilter_100hz), (32 bytes).
+    Removing my_math.o(i.SimpleRCLowPassFilter_10hz), (28 bytes).
+    Removing my_math.o(i.SimpleRCLowPassFilter_1hz), (28 bytes).
+    Removing my_math.o(i.SimpleRCLowPassFilter_200hz), (32 bytes).
+    Removing my_math.o(i.SimpleRCLowPassFilter_2hz), (28 bytes).
+    Removing ddiv.o(.text), (222 bytes).
+    Removing f2d.o(.text), (38 bytes).
+    Removing d2f.o(.text), (56 bytes).
+    Removing fepilogue.o(.text), (110 bytes).
+    Removing depilogue.o(.text), (186 bytes).
+    Removing dsqrt.o(.text), (162 bytes).
+    Removing cdcmple.o(.text), (48 bytes).
+
+603 unused section(s) (total 59206 bytes) removed from the image.
+=======
+
+567 unused section(s) (total 57106 bytes) removed from the image.
+>>>>>>> main
+>>>>>>> Stashed changes
 
 ==============================================================================
 
@@ -1495,12 +1612,47 @@ Image Symbol Table
     ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.c 0x00000000   Number         0  ff_gen_drv.o ABSOLUTE
     ../Middlewares/Third_Party/FatFs/src/option/syscall.c 0x00000000   Number         0  syscall.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
+<<<<<<< Updated upstream
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+=======
+<<<<<<< HEAD
+    ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+=======
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+>>>>>>> main
+>>>>>>> Stashed changes
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
+    ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
+    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
+    ../fplib/microlib/d2f.c                  0x00000000   Number         0  d2f.o ABSOLUTE
+    ../fplib/microlib/f2d.c                  0x00000000   Number         0  f2d.o ABSOLUTE
+    ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
+    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
+    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
+    ../fplib/microlib/fpsqrt.c               0x00000000   Number         0  dsqrt.o ABSOLUTE
+    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt.o ABSOLUTE
+    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_x.o ABSOLUTE
+=======
+>>>>>>> Stashed changes
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
@@ -1511,6 +1663,10 @@ Image Symbol Table
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
+<<<<<<< Updated upstream
+=======
+>>>>>>> main
+>>>>>>> Stashed changes
     ..\Core\Src\main.c                       0x00000000   Number         0  main.o ABSOLUTE
     ..\Core\Src\stm32f4xx_hal_msp.c          0x00000000   Number         0  stm32f4xx_hal_msp.o ABSOLUTE
     ..\Core\Src\stm32f4xx_it.c               0x00000000   Number         0  stm32f4xx_it.o ABSOLUTE
@@ -1553,6 +1709,16 @@ Image Symbol Table
     ..\\Heardware\\sdio.c                    0x00000000   Number         0  sdio.o ABSOLUTE
     ..\\Heardware\\tim.c                     0x00000000   Number         0  tim.o ABSOLUTE
     ..\\Heardware\\usart.c                   0x00000000   Number         0  usart.o ABSOLUTE
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    F:\Desktop\GeneratorECS\Library\common.c 0x00000000   Number         0  common.o ABSOLUTE
+    F:\Desktop\GeneratorECS\Library\fifo_buffer.c 0x00000000   Number         0  fifo_buffer.o ABSOLUTE
+    F:\Desktop\GeneratorECS\Library\my_math.c 0x00000000   Number         0  my_math.o ABSOLUTE
+    cdcmple.s                                0x00000000   Number         0  cdcmple.o ABSOLUTE
+=======
+>>>>>>> main
+>>>>>>> Stashed changes
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
     handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
     init.s                                   0x00000000   Number         0  init.o ABSOLUTE
@@ -1756,7 +1922,15 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
+<<<<<<< Updated upstream
     BuildAttributes$$THM_ISAv4$E$P$D$K$B$S$7EM$VFPi3$EXTD16$VFPS$VFMA$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+=======
+<<<<<<< HEAD
+    BuildAttributes$$THM_ISAv4$E$P$D$K$B$S$7EM$VFPi3$EXTD16$VFPS$VFMA$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OTIME$ROPI$IEEEJ$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+=======
+    BuildAttributes$$THM_ISAv4$E$P$D$K$B$S$7EM$VFPi3$EXTD16$VFPS$VFMA$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+>>>>>>> main
+>>>>>>> Stashed changes
     __ARM_use_no_argv                        0x00000000   Number         0  main.o ABSOLUTE
     __cpp_initialize__aeabi_                  - Undefined Weak Reference
     __cxa_finalize                            - Undefined Weak Reference
@@ -2016,6 +2190,26 @@ Memory Map of the image
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x08000000   0x00000188   Data   RO            3    RESET               startup_stm32f415xx.o
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    0x08000188   0x08000188   0x00000000   Code   RO         4546  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000188   0x08000188   0x00000004   Code   RO         4563    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x0800018c   0x0800018c   0x00000004   Code   RO         4566    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x08000190   0x08000190   0x00000000   Code   RO         4568    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x08000190   0x08000190   0x00000000   Code   RO         4570    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x08000190   0x08000190   0x00000008   Code   RO         4571    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x08000198   0x08000198   0x00000000   Code   RO         4573    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x08000198   0x08000198   0x00000000   Code   RO         4575    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x08000198   0x08000198   0x00000004   Code   RO         4564    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x0800019c   0x0800019c   0x00000024   Code   RO            4    .text               startup_stm32f415xx.o
+    0x080001c0   0x080001c0   0x00000062   Code   RO         4549    .text               mc_w.l(uldiv.o)
+    0x08000222   0x08000222   0x00000024   Code   RO         4553    .text               mc_w.l(memseta.o)
+    0x08000246   0x08000246   0x0000001e   Code   RO         4577    .text               mc_w.l(llshl.o)
+    0x08000264   0x08000264   0x00000020   Code   RO         4579    .text               mc_w.l(llushr.o)
+    0x08000284   0x08000284   0x00000024   Code   RO         4597    .text               mc_w.l(init.o)
+=======
+>>>>>>> Stashed changes
     0x08000188   0x08000188   0x00000000   Code   RO         4330  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
     0x08000188   0x08000188   0x00000004   Code   RO         4337    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
     0x0800018c   0x0800018c   0x00000004   Code   RO         4340    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
@@ -2031,6 +2225,10 @@ Memory Map of the image
     0x08000246   0x08000246   0x0000001e   Code   RO         4351    .text               mc_w.l(llshl.o)
     0x08000264   0x08000264   0x00000020   Code   RO         4353    .text               mc_w.l(llushr.o)
     0x08000284   0x08000284   0x00000024   Code   RO         4355    .text               mc_w.l(init.o)
+<<<<<<< Updated upstream
+=======
+>>>>>>> main
+>>>>>>> Stashed changes
     0x080002a8   0x080002a8   0x00000128   Code   RO          456    i.ADC_Init          stm32f4xx_hal_adc.o
     0x080003d0   0x080003d0   0x00000002   Code   RO          206    i.BusFault_Handler  stm32f4xx_it.o
     0x080003d2   0x080003d2   0x00000002   PAD
@@ -2178,15 +2376,35 @@ Memory Map of the image
     0x08002f60   0x08002f60   0x00000004   Code   RO          358    i.USER_write        user_diskio.o
     0x08002f64   0x08002f64   0x00000002   Code   RO          222    i.UsageFault_Handler  stm32f4xx_it.o
     0x08002f66   0x08002f66   0x00000020   Code   RO         1485    i.__NVIC_SetPriority  stm32f4xx_hal_cortex.o
+<<<<<<< Updated upstream
     0x08002f86   0x08002f86   0x0000000e   Code   RO         4359    i.__scatterload_copy  mc_w.l(handlers.o)
     0x08002f94   0x08002f94   0x00000002   Code   RO         4360    i.__scatterload_null  mc_w.l(handlers.o)
     0x08002f96   0x08002f96   0x0000000e   Code   RO         4361    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+=======
+<<<<<<< HEAD
+    0x08002f86   0x08002f86   0x0000000e   Code   RO         4601    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x08002f94   0x08002f94   0x00000002   Code   RO         4602    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08002f96   0x08002f96   0x0000000e   Code   RO         4603    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+=======
+    0x08002f86   0x08002f86   0x0000000e   Code   RO         4359    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x08002f94   0x08002f94   0x00000002   Code   RO         4360    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08002f96   0x08002f96   0x0000000e   Code   RO         4361    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+>>>>>>> main
+>>>>>>> Stashed changes
     0x08002fa4   0x08002fa4   0x00000032   Code   RO           15    i.main              main.o
     0x08002fd6   0x08002fd6   0x00000008   Data   RO         1202    .constdata          stm32f4xx_hal_dma.o
     0x08002fde   0x08002fde   0x00000010   Data   RO         3584    .constdata          system_stm32f4xx.o
     0x08002fee   0x08002fee   0x00000008   Data   RO         3585    .constdata          system_stm32f4xx.o
     0x08002ff6   0x08002ff6   0x00000002   PAD
+<<<<<<< Updated upstream
     0x08002ff8   0x08002ff8   0x00000020   Data   RO         4357    Region$$Table       anon$$obj.o
+=======
+<<<<<<< HEAD
+    0x08002ff8   0x08002ff8   0x00000020   Data   RO         4599    Region$$Table       anon$$obj.o
+=======
+    0x08002ff8   0x08002ff8   0x00000020   Data   RO         4357    Region$$Table       anon$$obj.o
+>>>>>>> main
+>>>>>>> Stashed changes
 
 
     Execution Region RW_IRAM2 (Exec base: 0x10000000, Load base: 0x08003048, Size: 0x00000000, Max: 0x00010000, ABSOLUTE)
