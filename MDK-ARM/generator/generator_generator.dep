@@ -1335,7 +1335,10 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5F702114)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_mmc.h)(0x5F702114)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h)(0x5F702114)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 F (F:\Desktop\GeneratorECS\Library\common.c)(0x5F7D7B7D)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../FATFS/Target -I ../FATFS/App -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FatFs/src -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Heardware -I ..\Library -I ..\Peripheral-I.\RTE\_generator-IC:\Users\21954\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\21954\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F415xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F415xx-o generator\common.o --omf_browse generator\common.crf --depend generator\common.d)
 I (F:\Desktop\GeneratorECS\Library\common.h)(0x5F7D7B7B)
@@ -1350,4 +1353,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5E53505A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
 =======
 >>>>>>> main
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

@@ -3,8 +3,11 @@
 #include "stdint.h"
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 #define PI 3.1415926535898f
 #define deg2rad  PI/180.0
@@ -109,6 +112,9 @@ void AngleAdjust(float* angle);//rad
 =======
 
 >>>>>>> main
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 

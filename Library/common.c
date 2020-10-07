@@ -1,7 +1,10 @@
 #include "common.h"
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 void AngleAdjust(float* angle)
 {
@@ -16,4 +19,7 @@ void AngleAdjust(float* angle)
 }
 =======
 >>>>>>> main
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
