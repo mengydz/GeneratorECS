@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : TIM.h
-  * Description        : This file provides code for the configuration
-  *                      of the TIM instances.
+  * File Name          : gpio.h
+  * Description        : This file contains all the functions prototypes for
+  *                      the gpio
   ******************************************************************************
   * @attention
   *
@@ -16,9 +16,10 @@
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __tim_H
-#define __tim_H
+#ifndef __exit_H
+#define __exit_H
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -30,34 +31,30 @@
 
 /* USER CODE END Includes */
 
-extern TIM_HandleTypeDef htim3;
-extern TIM_HandleTypeDef htim5;
-extern TIM_HandleTypeDef htim6;
-extern TIM_HandleTypeDef htim7;
-
 /* USER CODE BEGIN Private defines */
+#define MODE_IN_Pin 			GPIO_PIN_0
+#define MODE_IN_GPIO_Port 		GPIOB
+#define THROTTLE_IN_Pin 		GPIO_PIN_1
+#define THROTTLE_IN_GPIO_Port 	GPIOB
+#define SPEED_IN_Pin 			GPIO_PIN_15
+#define SPEED_IN_GPIO_Port 		GPIOB
 
+#define PWM_MODE				HAL_GPIO_ReadPin(MODE_IN_GPIO_Port,MODE_IN_Pin)
+#define PWM_THROTTLE			HAL_GPIO_ReadPin(THROTTLE_IN_GPIO_Port,THROTTLE_IN_Pin)
+#define PWM_SPEED				HAL_GPIO_ReadPin(SPEED_IN_GPIO_Port,SPEED_IN_Pin)
 /* USER CODE END Private defines */
 
-void MX_TIM3_Init(void);
-void MX_TIM5_Init(void);
-void MX_TIM6_Init(void);
-void MX_TIM7_Init(void);
-
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+void MX_EXIT_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-uint64_t GetMillis(void);
-uint64_t GetMicros(void);
-uint8_t Wait_processing(uint16_t TMS);
-
+extern int64_t pwm_in_mode_plus,pwm_in_throttle_plus,pwm_in_speed_plus;
 
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ tim_H */
+#endif /*__ pinoutConfig_H */
 
 /**
   * @}

@@ -423,6 +423,11 @@
               <FileType>1</FileType>
               <FilePath>..\Peripheral\usart.c</FilePath>
             </File>
+            <File>
+              <FileName>exit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Peripheral\exit.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

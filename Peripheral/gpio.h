@@ -36,14 +36,14 @@
 #define IIC_SCL_GPIO_Port 		GPIOB
 #define IIC_SDA_Pin 			GPIO_PIN_11
 #define IIC_SDA_GPIO_Port 		GPIOB
+
 #define BLUE_Pin 				GPIO_PIN_12
 #define BLUE_GPIO_Port 			GPIOB
 #define GREED_Pin 				GPIO_PIN_13
 #define GREED_GPIO_Port 		GPIOB
 #define RED_Pin 				GPIO_PIN_14
 #define RED_GPIO_Port 			GPIOB
-#define SPEED_IN_Pin 			GPIO_PIN_15
-#define SPEED_IN_GPIO_Port 		GPIOB
+
 #define BOARD_LED_Pin 			GPIO_PIN_6
 #define BOARD_LED_GPIO_Port 	GPIOC
 
@@ -53,8 +53,8 @@
 #define CDI_POWER_Pin 			GPIO_PIN_5
 #define CDI_POWER_GPIO_Port 	GPIOB
 
-#define CDI_POWER_ENABLE	HAL_GPIO_WritePin(CDI_POWER_GPIO_Port, CDI_POWER_Pin, GPIO_PIN_SET)
-#define CDI_POWER_DISABLE	HAL_GPIO_WritePin(CDI_POWER_GPIO_Port, CDI_POWER_Pin, GPIO_PIN_SET)
+#define CDI_POWER_ENABLE		HAL_GPIO_WritePin(CDI_POWER_GPIO_Port, CDI_POWER_Pin, GPIO_PIN_SET)
+#define CDI_POWER_DISABLE		HAL_GPIO_WritePin(CDI_POWER_GPIO_Port, CDI_POWER_Pin, GPIO_PIN_SET)
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);

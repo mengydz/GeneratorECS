@@ -120,9 +120,9 @@ void MX_TIM7_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 
   htim7.Instance = TIM7;
-  htim7.Init.Prescaler = 0;
+  htim7.Init.Prescaler = 83;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim7.Init.Period = 65535;
+  htim7.Init.Period = 50000;
   htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
   {
@@ -339,6 +339,18 @@ uint64_t GetMicros(void)
 	return glo_50ms * 50000 + cnt;
 }
 
+uint8_t Wait_processing(uint16_t TMS)
+{
+	if(TIM6->CNT<TMS)			 	 //等待是否到达定时时间
+	{		
+		return 1;			 		 //未到时间则返回等待标致。
+	}
+	else
+	{
+		TIM6->CNT=0;			  	 //到达定时时间则清除定时器计数器
+		return 0;
+	}
+}  
 
 
 /* USER CODE END 1 */
