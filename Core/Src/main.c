@@ -68,6 +68,7 @@ void SystemClock_Config(void);
   * @brief  The application entry point.
   * @retval int
   */
+  uint8_t flag=0,cnt=100;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -118,6 +119,20 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	HAL_Delay(10);
+	if(flag)
+	{
+	  cnt--;
+	}
+	else
+	{
+	  cnt++;
+	}
+	if(cnt==200)
+	  flag=1;
+	else if(cnt==100)
+	  flag=0;
+	TIM3->CCR1 = cnt;
   }
   /* USER CODE END 3 */
 }
