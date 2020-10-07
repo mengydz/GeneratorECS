@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F415xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../FATFS/Target;../FATFS/App;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FatFs/src;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\Heardware;..\Library;..\Peripheral</IncludePath>
+              <IncludePath>../Core/Inc;../FATFS/Target;../FATFS/App;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FatFs/src;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\Peripheral;..\Library</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -389,6 +389,64 @@
               <FilePath>startup_stm32f415xx.s</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>Peripheral</GroupName>
+          <Files>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Peripheral\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Peripheral\dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Peripheral\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>sdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Peripheral\sdio.c</FilePath>
+            </File>
+            <File>
+              <FileName>tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Peripheral\tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Peripheral\usart.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Library</GroupName>
+          <Files>
+            <File>
+              <FileName>common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\common.c</FilePath>
+            </File>
+            <File>
+              <FileName>fifo_buffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\fifo_buffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>my_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\my_math.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
           <GroupName>Application/User/Core</GroupName>
@@ -569,79 +627,6 @@
               <FilePath>../Middlewares/Third_Party/FatFs/src/option/syscall.c</FilePath>
             </File>
           </Files>
-        </Group>
-        <Group>
-          <GroupName>Heardware</GroupName>
-          <Files>
-            <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Heardware\adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Heardware\dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Heardware\gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>sdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Heardware\sdio.c</FilePath>
-            </File>
-            <File>
-              <FileName>tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Heardware\tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Heardware\usart.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Library</GroupName>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-<<<<<<< HEAD
-          <Files>
-            <File>
-              <FileName>common.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>F:\Desktop\GeneratorECS\Library\common.c</FilePath>
-            </File>
-            <File>
-              <FileName>fifo_buffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>F:\Desktop\GeneratorECS\Library\fifo_buffer.c</FilePath>
-            </File>
-            <File>
-              <FileName>my_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>F:\Desktop\GeneratorECS\Library\my_math.c</FilePath>
-            </File>
-          </Files>
-=======
->>>>>>> main
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-        </Group>
-        <Group>
-          <GroupName>Peripheral</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
     </Target>

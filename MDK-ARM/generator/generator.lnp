@@ -1,5 +1,14 @@
 --cpu=Cortex-M4.fp.sp
 "generator\startup_stm32f415xx.o"
+"generator\adc.o"
+"generator\dma.o"
+"generator\gpio.o"
+"generator\sdio.o"
+"generator\tim.o"
+"generator\usart.o"
+"generator\common.o"
+"generator\fifo_buffer.o"
+"generator\my_math.o"
 "generator\main.o"
 "generator\stm32f4xx_it.o"
 "generator\stm32f4xx_hal_msp.o"
@@ -30,27 +39,6 @@
 "generator\ff.o"
 "generator\ff_gen_drv.o"
 "generator\syscall.o"
-"generator\adc.o"
-"generator\dma.o"
-"generator\gpio.o"
-"generator\sdio.o"
-"generator\tim.o"
-"generator\usart.o"
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-<<<<<<< HEAD
-"generator\common.o"
-"generator\fifo_buffer.o"
-"generator\my_math.o"
-=======
->>>>>>> main
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 --library_type=microlib --strict --scatter "generator\generator.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
