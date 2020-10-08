@@ -5,7 +5,7 @@
 #include <entry.h>
 #endif
 
-#define LOG_FILE_NAME "log1.bin"
+#define LOG_FILE_NAME "log10.bin"
 
 FATFS fs;
 FATFS *pfs;
@@ -24,30 +24,10 @@ const struct LogStructure log_structure[] = {
     LOG_TEST_MSG, sizeof(struct log_TEST),
     "TEST", "QH",         "TimeUS,value"
   },
-  { LOG_PIDW1_MSG, sizeof(struct log_PID), 
-    "PID1", "Qffffffffff",   "TimeUS,Tar,Act,Err,P,I,D,FF,DR,ER,TR"
+  { LOG_ECU_MSG, sizeof(struct log_ECU), 
+//    "ECU", "QffffffHHHHHHH",   "TimeUS,VoltSet,Volt,CurSet,Curr,CurChar,temp,1,2,3,4,5,6,7"
+    "ECU", "Qffffff",   "TimeUS,VoltSet,Volt,CurSet,Curr,CurChar,temp"
   }, 
-  { LOG_PIDW2_MSG, sizeof(struct log_PID), 
-    "PID2", "Qffffffffff",   "TimeUS,Tar,Act,Err,P,I,D,FF,DR,ER,TR"
-  },
-  { LOG_PIDW3_MSG, sizeof(struct log_PID), 
-    "PID3", "Qffffffffff",   "TimeUS,Tar,Act,Err,P,I,D,FF,DR,ER,TR"
-  },
-  { LOG_PIDW4_MSG, sizeof(struct log_PID), 
-    "PID4", "Qffffffffff",   "TimeUS,Tar,Act,Err,P,I,D,FF,DR,ER,TR"
-  },
-  { LOG_ENC1_MSG, sizeof(struct log_ENC), 
-    "ENC1", "QiidH",   "TimeUS,DLT,TK,DT,DMS"
-  },
-  { LOG_ENC2_MSG, sizeof(struct log_ENC), 
-    "ENC2", "QiidH",   "TimeUS,DLT,TK,DT,DMS"
-  },
-  { LOG_ENC3_MSG, sizeof(struct log_ENC), 
-    "ENC3", "QiidH",   "TimeUS,DLT,TK,DT,DMS"
-  },
-  { LOG_ENC4_MSG, sizeof(struct log_ENC), 
-    "ENC4", "QiidH",   "TimeUS,DLT,TK,DT,DMS"
-  },
   { LOG_PWM_MSG, sizeof(struct log_PWM), 
     "PWM", "Qhhhh",   "TimeUS,m1,m2,m3,m4"
   },
@@ -112,17 +92,18 @@ void Log_Init(void)
   if(f_mount(&fs, "", 0) != FR_OK)
     return;
   res = f_open(&fil, LOG_FILE_NAME, FA_CREATE_ALWAYS | FA_WRITE); 
-  if(res == FR_OK){
+//  if(res == FR_OK){
 //    f_close(&fil);
-  } else if(res == FR_EXIST){
+//  } else if(res == FR_EXIST){
 //    f_unlink(LOG_FILE_NAME);
-  }
+//  }
 //  if(f_mount(NULL, "", 1) != FR_OK)
 //    return;
   
   for(i = 0; i < ARRAY_SIZE(log_structure); i++) 
   {
-    Write_Format(&log_structure[i]);
+	Write_Format(&log_structure[i]);
+	HAL_Delay(100);
   }
 }
 
@@ -148,34 +129,17 @@ void Write_Test(uint64_t time_us, uint16_t value)
   WriteBlock(&pkt, sizeof(pkt));
 }
 
-void Write_PID(uint8_t msg_type, const PID_Info *info)
+void Write_ECU(uint64_t time_us, const ECU_Info *info)
 {
-  struct log_PID pkt = {
-    LOG_PACKET_HEADER_INIT(msg_type),
-    HAL_GetTick(),
-    info->target,
-    info->actual,
-    info->error,
-    info->P,
-    info->I,
-    info->D,
-    info->FF,
-    info->DR,
-    info->ER,
-    info->TR
-  };
-  WriteBlock(&pkt, sizeof(pkt));
-}
-
-void Write_Encoder(uint8_t msg_type, int32_t delta_tick, int32_t tick, double delta_min, uint16_t delta_ms)
-{
-  struct log_ENC pkt = {
-    LOG_PACKET_HEADER_INIT(msg_type),
-    HAL_GetTick(),
-    delta_tick,
-    tick,
-    delta_min,
-    delta_ms
+  struct log_ECU pkt = {
+    LOG_PACKET_HEADER_INIT(LOG_ECU_MSG),
+    time_us,
+    info->voltage_set,
+    info->voltage,
+    info->current_set,
+    info->current_used,
+    info->current_charge,
+    info->temperature,
   };
   WriteBlock(&pkt, sizeof(pkt));
 }

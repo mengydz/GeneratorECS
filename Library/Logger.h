@@ -73,30 +73,6 @@ struct PACKED log_TEST {
   uint16_t value;
 };
 
-struct PACKED log_PID {
-  LOG_PACKET_HEADER
-  uint64_t time_us;
-  float   target;
-  float   actual;
-  float   error;
-  float   P;
-  float   I;
-  float   D;
-  float   FF;
-  float   DR;
-  float   ER;
-  float   TR;
-};
-
-struct PACKED log_ENC {
-  LOG_PACKET_HEADER
-  uint64_t time_us;
-  int32_t  delta_tick;
-  int32_t  tick;
-  double   delta_min;
-  uint16_t delta_ms;
-};
-
 struct PACKED log_PWM {
   LOG_PACKET_HEADER
   uint64_t time_us;
@@ -107,40 +83,53 @@ struct PACKED log_PWM {
 };
 
 enum LogMessages{
-  LOG_TEST_MSG = 0,
-  LOG_PIDW1_MSG,
-  LOG_PIDW2_MSG,
-  LOG_PIDW3_MSG,
-  LOG_PIDW4_MSG,
-  LOG_ENC1_MSG,
-  LOG_ENC2_MSG,
-  LOG_ENC3_MSG,
-  LOG_ENC4_MSG,
-  LOG_PWM_MSG,
+	LOG_TEST_MSG = 0,
+	LOG_PWM_MSG,
+	LOG_ECU_MSG,
 
-  LOG_FORMAT_MSG = 128, // this must remain #128
+	LOG_FORMAT_MSG = 128, // this must remain #128
 
-  _LOG_LAST_MSG_
+	_LOG_LAST_MSG_
 };
 
-typedef struct PID_Info {
-  float target;
-  float actual;
-  float error;
-  float P;
-  float I;
-  float D;
-  float FF;
-  float DR;
-  float ER;
-  float TR;
-}PID_Info;
+struct PACKED log_ECU {
+	LOG_PACKET_HEADER
+	uint64_t time_us;
+	float   voltage_set;
+	float   voltage;
+	float   current_set;
+	float   current_used;
+	float   current_charge;
+	float   temperature;
+//	uint16_t pwm_max_set;
+//	uint16_t pwm_min_set;
+//	uint16_t pwm_out_throttle;
+//	uint16_t pwm_in_mode;
+//	uint16_t pwm_in_throttle;
+//	uint16_t servo_direction;
+//	uint16_t motor_speed;
+};
+typedef struct ECU_Info {
+	float   voltage_set;
+	float   voltage;
+	float   current_set;
+	float   current_used;
+	float   current_charge;
+	float   temperature;
+	uint16_t pwm_max_set;
+	uint16_t pwm_min_set;
+	uint16_t pwm_out_throttle;
+	uint16_t pwm_in_mode;
+	uint16_t pwm_in_throttle;
+	uint16_t servo_direction;
+	uint16_t motor_speed;
+}ECU_Info;
+
 
 void     Log_Init(void);
 void     Write_Test(uint64_t time_us, uint16_t value);
-void     Write_PID(uint8_t msg_type, const PID_Info *info);
-void     Write_Encoder(uint8_t msg_type, int32_t delta_tick, int32_t tick, double delta_min, uint16_t delta_ms);
-void     Write_PWM(int16_t pwm_1, int16_t pwm_2, int16_t pwm_3, int16_t pwm_4);
+void Write_PWM(int16_t pwm_1, int16_t pwm_2, int16_t pwm_3, int16_t pwm_4);
+void Write_ECU(uint64_t time_us, const ECU_Info *info);
 
 #ifdef __cplusplus
 }

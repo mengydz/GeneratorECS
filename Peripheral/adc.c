@@ -26,6 +26,7 @@
 
 ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
+uint32_t ADC_Value[5];
 
 /* ADC1 init function */
 void MX_ADC1_Init(void)

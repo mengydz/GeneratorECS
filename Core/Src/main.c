@@ -27,12 +27,9 @@
 #include "usart.h"
 #include "gpio.h"
 #include "exit.h"
-#include "logger.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-uint32_t ADC_Value[5];
-uint32_t loop_idx20ms=0;
-uint32_t loop_idx500ms=0;
+#include "Logger.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,7 +47,7 @@ uint32_t loop_idx500ms=0;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-void Main_loop_1MS_First(void);
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -63,7 +60,9 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint32_t loop_idx100ms=0;
+uint32_t loop_idx500ms=0;
+//ECU_Info ecu_info;
 /* USER CODE END 0 */
 
 /**
@@ -97,44 +96,43 @@ int main(void)
 	MX_EXIT_Init();
 	MX_DMA_Init();
 	MX_ADC1_Init();
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 5);
-
-	MX_USART2_UART_Init();
 	MX_SDIO_SD_Init();
-	CDI_POWER_ENABLE;
-	MX_TIM3_Init();
-	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
 	MX_FATFS_Init();
+	Log_Init();
+	MX_USART2_UART_Init();
+	MX_TIM3_Init();
+	MX_TIM7_Init();
 //	MX_TIM5_Init();
 	MX_TIM6_Init();
-	HAL_TIM_Base_Start_IT(&htim6);
-	MX_TIM7_Init();
+	MX_TIM3_Init();
+	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
+//	HAL_TIM_Base_Start_IT(&htim6);
 	HAL_TIM_Base_Start_IT(&htim7);//启动时间戳定时器
-	Log_Init();
-	/* USER CODE BEGIN 2 */
-
-	/* USER CODE END 2 */
-
-	/* Infinite loop */
-	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		while(Wait_processing(1000));
-//		Main_loop_1MS_First();
-		loop_idx20ms++;
-		if(loop_idx20ms>=20) 					 		//主循环周期为400HZ，分频可以得到各运行周期的轮询函数。
+//		while(Wait_processing(2000)){}//主循环周期为50HZ，分频可以得到各运行周期的轮询函数。
+		HAL_Delay(20);
+		loop_idx100ms+=20;
+		if(loop_idx100ms>=100)
 		{
-			loop_idx20ms=0;
-			uint64_t _systime = GetMicros(); 
-			Write_Test(_systime,pwm_in_throttle_plus);		
-		}////////////////////////////////////////   //200HZ	 
-		loop_idx500ms++;
-		if(loop_idx500ms>=500) 					 		//主循环周期为400HZ，分频可以得到各运行周期的轮询函数。
+			loop_idx100ms=0;
+			uint64_t _systime = GetMicros();
+//			ecu_info.pwm_in_mode = pwm_in_mode_plus;
+//			ecu_info.pwm_in_throttle = pwm_in_throttle_plus;
+//			Write_EcsData(_systime,&ecu_info);
+//			Write_Test(_systime,pwm_in_mode_plus);
+//			Write_PWM(pwm_in_throttle_plus,pwm_in_throttle_plus,pwm_in_throttle_plus,pwm_in_throttle_plus);
+			ECU_Info _pid;
+			_pid.voltage_set = pwm_in_throttle_plus;
+			Write_ECU(_systime,&_pid);
+		}
+		loop_idx500ms+=20;
+		if(loop_idx500ms>=500)
 		{
 			loop_idx500ms=0;
 			HAL_GPIO_TogglePin(GPIOB, BLUE_Pin|GREED_Pin|RED_Pin);
 //			Main_loop_500MS_First();  
-		}////////////////////////////////////////   //200HZ	 
+		}
 	}
 	/* USER CODE END 3 */
 }
