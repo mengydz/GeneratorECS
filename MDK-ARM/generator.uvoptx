@@ -153,7 +153,17 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ecu_info,0x0A</ItemText>
+          <ItemText>_ecu_info,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>1</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ADC_Value,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>pkt,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>

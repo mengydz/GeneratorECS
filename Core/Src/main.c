@@ -96,6 +96,7 @@ int main(void)
 	MX_EXIT_Init();
 	MX_DMA_Init();
 	MX_ADC1_Init();
+//	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 5);
 	MX_SDIO_SD_Init();
 	MX_FATFS_Init();
 	Log_Init();
@@ -117,14 +118,17 @@ int main(void)
 		{
 			loop_idx100ms=0;
 			uint64_t _systime = GetMicros();
-//			ecu_info.pwm_in_mode = pwm_in_mode_plus;
-//			ecu_info.pwm_in_throttle = pwm_in_throttle_plus;
-//			Write_EcsData(_systime,&ecu_info);
-//			Write_Test(_systime,pwm_in_mode_plus);
-//			Write_PWM(pwm_in_throttle_plus,pwm_in_throttle_plus,pwm_in_throttle_plus,pwm_in_throttle_plus);
-			ECU_Info _pid;
-			_pid.voltage_set = pwm_in_throttle_plus;
-			Write_ECU(_systime,&_pid);
+			ECU_Info _ecu_info;
+			_ecu_info.voltage_set = ADC_Value[0];
+			_ecu_info.voltage = ADC_Value[0];
+			_ecu_info.current_used = ADC_Value[1];
+			_ecu_info.current_charge = ADC_Value[2];
+			_ecu_info.pwm_in_mode = pwm_in_mode_plus;
+			_ecu_info.pwm_in_throttle = pwm_in_throttle_plus;
+			_ecu_info.pwm_max_set = pwm_in_throttle_plus;
+			_ecu_info.pwm_min_set = pwm_in_throttle_plus;
+			_ecu_info.pwm_out_throttle = TIM3->CCR3;
+			Write_ECU(_systime,&_ecu_info);
 		}
 		loop_idx500ms+=20;
 		if(loop_idx500ms>=500)

@@ -101,13 +101,13 @@ struct PACKED log_ECU {
 	float   current_used;
 	float   current_charge;
 	float   temperature;
-//	uint16_t pwm_max_set;
-//	uint16_t pwm_min_set;
-//	uint16_t pwm_out_throttle;
-//	uint16_t pwm_in_mode;
-//	uint16_t pwm_in_throttle;
-//	uint16_t servo_direction;
-//	uint16_t motor_speed;
+	uint16_t pwm_max_set;
+	uint16_t pwm_min_set;
+	uint16_t pwm_out_throttle;
+	uint16_t pwm_in_mode;
+	uint16_t pwm_in_throttle;
+	uint16_t servo_direction;
+	uint16_t motor_speed;
 };
 typedef struct ECU_Info {
 	float   voltage_set;

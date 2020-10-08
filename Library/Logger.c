@@ -5,7 +5,7 @@
 #include <entry.h>
 #endif
 
-#define LOG_FILE_NAME "log10.bin"
+#define LOG_FILE_NAME "log1.bin"
 
 FATFS fs;
 FATFS *pfs;
@@ -26,7 +26,7 @@ const struct LogStructure log_structure[] = {
   },
   { LOG_ECU_MSG, sizeof(struct log_ECU), 
 //    "ECU", "QffffffHHHHHHH",   "TimeUS,VoltSet,Volt,CurSet,Curr,CurChar,temp,1,2,3,4,5,6,7"
-    "ECU", "Qffffff",   "TimeUS,VoltSet,Volt,CurSet,Curr,CurChar,temp"
+    "ECU", "QffffffHHHHHHH",   "TimeUS,VS,V,CS,C,CC,temp,ma,mi,ou,im,it,sd,ms"
   }, 
   { LOG_PWM_MSG, sizeof(struct log_PWM), 
     "PWM", "Qhhhh",   "TimeUS,m1,m2,m3,m4"
@@ -140,6 +140,13 @@ void Write_ECU(uint64_t time_us, const ECU_Info *info)
     info->current_used,
     info->current_charge,
     info->temperature,
+	  info->motor_speed,
+	  info->pwm_in_mode,
+	  info->pwm_in_throttle,
+	  info->pwm_max_set,
+	  info->pwm_min_set,
+	  info->pwm_out_throttle,
+	  info->servo_direction,
   };
   WriteBlock(&pkt, sizeof(pkt));
 }
