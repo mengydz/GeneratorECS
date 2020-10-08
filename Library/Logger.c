@@ -87,11 +87,11 @@ void Fill_Format(const struct LogStructure *s, struct log_Format *pkt)
 void Log_Init(void)
 {
   uint8_t i;
-  FRESULT res;
  
   if(f_mount(&fs, "", 0) != FR_OK)
     return;
-  res = f_open(&fil, LOG_FILE_NAME, FA_CREATE_ALWAYS | FA_WRITE); 
+  f_open(&fil, LOG_FILE_NAME, FA_CREATE_ALWAYS | FA_WRITE); 
+//  res = f_open(&fil, LOG_FILE_NAME, FA_CREATE_ALWAYS | FA_WRITE); 
 //  if(res == FR_OK){
 //    f_close(&fil);
 //  } else if(res == FR_EXIST){
@@ -132,21 +132,21 @@ void Write_Test(uint64_t time_us, uint16_t value)
 void Write_ECU(uint64_t time_us, const ECU_Info *info)
 {
   struct log_ECU pkt = {
-    LOG_PACKET_HEADER_INIT(LOG_ECU_MSG),
-    time_us,
-    info->voltage_set,
-    info->voltage,
-    info->current_set,
-    info->current_used,
-    info->current_charge,
-    info->temperature,
-	  info->motor_speed,
-	  info->pwm_in_mode,
-	  info->pwm_in_throttle,
-	  info->pwm_max_set,
-	  info->pwm_min_set,
-	  info->pwm_out_throttle,
-	  info->servo_direction,
+	LOG_PACKET_HEADER_INIT(LOG_ECU_MSG),
+	time_us,
+	info->voltage_set,
+	info->voltage,
+	info->current_set,
+	info->current_used,
+	info->current_charge,
+	info->temperature,
+	info->pwm_max_set,
+	info->pwm_min_set,
+	info->pwm_out_throttle,
+	info->pwm_in_mode,
+	info->pwm_in_throttle,
+	info->servo_direction,
+	info->motor_speed,
   };
   WriteBlock(&pkt, sizeof(pkt));
 }

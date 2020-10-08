@@ -127,7 +127,9 @@ int main(void)
 			_ecu_info.pwm_in_throttle = pwm_in_throttle_plus;
 			_ecu_info.pwm_max_set = pwm_in_throttle_plus;
 			_ecu_info.pwm_min_set = pwm_in_throttle_plus;
-			_ecu_info.pwm_out_throttle = TIM3->CCR3;
+			_ecu_info.pwm_out_throttle = TIM3->CCR1;
+			_ecu_info.servo_direction = pwm_in_mode_plus;
+			_ecu_info.motor_speed = pwm_in_throttle_plus;
 			Write_ECU(_systime,&_ecu_info);
 		}
 		loop_idx500ms+=20;
