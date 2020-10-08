@@ -27,10 +27,9 @@
 #include "usart.h"
 #include "gpio.h"
 #include "exit.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-uint32_t loop_idx500ms=0;
+#include "Logger.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,7 +47,7 @@ uint32_t loop_idx500ms=0;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-void Main_loop_1MS_First(void);
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -65,7 +64,7 @@ extern signed int idata service_time;
 extern unsigned long idata next_servece_time;
 extern unsigned long idata all_time;
 extern unsigned char code flash_lock;
-volatile unsigned char state_mode,gcur_max; //¼Ä´æÆ÷¶¨Òåcurrenth_old,
+volatile unsigned char state_mode,gcur_max; //ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½currenth_old,
 volatile unsigned char idata error,rev_rpm_acc;
 volatile unsigned int idata voltage;
 volatile signed int idata currenth1,currenth2;
@@ -83,15 +82,15 @@ signed int idata cur_offset;
 
 typedef struct
 {
-	char serial[10];//±àºÅ0-9
-	signed int vol;//µçÑ¹10 11
-	signed int cur;//µçÁ÷12 13
-	signed int duoji_min;	//×îÐ¡¶æÁ¿14 15
-	signed int duoji_max;//×î´ó¶æÁ¿16 17
-	signed int ser_tim;//±£ÑøÊ±¼ä18 19
-	signed int duoji_fangxiang;//¶æ»ú·½Ïò20 21  0ÕýÏò 1·´Ïò
-	signed int vol_offset;//Ô¤Áô1 22 23
-	signed int cur_offset;//Ô¤Áô2 24 25
+	char serial[10];//ï¿½ï¿½ï¿½0-9
+	signed int vol;//ï¿½ï¿½Ñ¹10 11
+	signed int cur;//ï¿½ï¿½ï¿½ï¿½12 13
+	signed int duoji_min;	//ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½14 15
+	signed int duoji_max;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½16 17
+	signed int ser_tim;//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½18 19
+	signed int duoji_fangxiang;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½20 21  0ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½
+	signed int vol_offset;//Ô¤ï¿½ï¿½1 22 23
+	signed int cur_offset;//Ô¤ï¿½ï¿½2 24 25
 }struc;
 xdata union UN2
 {
@@ -113,73 +112,75 @@ signed char a[18];
 
 bit flash_ea,flash_eb,read_pid_flag=0,set_enabel;
 static volatile bit SMB_BUSY=0,SMB_RW;
-volatile bit TX_OK,RX_OK; //±êÖ¾Î»¶¨Òå
-unsigned char send_task=0;//´ý·¢ËÍÈÎÎñ
+volatile bit TX_OK,RX_OK; //ï¿½ï¿½Ö¾Î»ï¿½ï¿½ï¿½ï¿½
+unsigned char send_task=0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 signed int VOLTAGE_SET,CURRENT_SET;
 unsigned int PWM_MAX_SET,PWM_MIN_SET,PWM_MAX_SET_2;
 bit FANGXIANG_FLAG;
 ///////////////////////////////////////////////////////////////////
-unsigned int renwu_st=0;//´ýÖ´ÐÐÈÎÎñ
+unsigned int renwu_st=0;//ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 unsigned char mode;
 extern unsigned char code FLASH_SET[26];//
 */
 
-//UART½ÓÊÕÖµ£¨Î´¶ÁÈ¡±êÖ¾¼°ÖÐ¶Ï£©
-//UART·¢ËÍÖµ£¨·¢ËÍÍê³É±êÖ¾¼°ÖÐ¶Ï£©
+//UARTï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Î´ï¿½ï¿½È¡ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½Ð¶Ï£ï¿½
+//UARTï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾ï¿½ï¿½ï¿½Ð¶Ï£ï¿½
 //ADCÖµ
-//PWMOUT£¨¿ÉÒÔÀ©´ó10±¶£©£¨µ×²ãº¯ÊýÉèÖÃÏÞÎ»ÖµPWM_MIN_SET¡¢PWM_MAX_SET£©
-//PWMIN1£¨¿ÉÒÔÀ©´ó10±¶£©£¨ÏÞÖÆÔÚ1000-2000Ö®¼ä£©
+//PWMOUTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ãº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ÖµPWM_MIN_SETï¿½ï¿½PWM_MAX_SETï¿½ï¿½
+//PWMIN1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1000-2000Ö®ï¿½ä£©
 //PWMIN2
-//Ð´ÈëFLASHµÄÉèÖÃ²ÎÊý
+//Ð´ï¿½ï¿½FLASHï¿½ï¿½ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½
 
 /*
-º¯Êý¹¦ÄÜ£ºÉÏµç³õÊ¼»¯
-Ö´ÐÐÊ±¼ä£ºÉÏµçÊ±
-ËµÃ÷£º¶ÁÈ¡ÉèÖÃ²ÎÊý£¬PWMOUTÉèÖÃ£¬µ×²ã³õÊ¼»¯£¬
-			¼ÆËãÖµÇå0£¬Ä£Ê½ÉèÖÃ£¬ÔËÐÐÖÜÆÚÉèÖÃ
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ïµï¿½ï¿½Ê¼ï¿½ï¿½
+Ö´ï¿½ï¿½Ê±ï¿½ä£ºï¿½Ïµï¿½Ê±
+Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½PWMOUTï¿½ï¿½ï¿½Ã£ï¿½ï¿½×²ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+			ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½0ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 /*
-º¯Êý¹¦ÄÜ£º´®¿ÚÊý¾Ý½ÓÊÕ´¦Àí
-Ö´ÐÐÊ±¼ä£º½ÓÊÕµ½Êý¾ÝÖÐ¶ÏÊ±£¬Ã¿10MS²éÑ¯Ò»´ÎÓÐÎÞÎ´¶ÁÊý¾Ý
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½Õ´ï¿½ï¿½ï¿½
+Ö´ï¿½ï¿½Ê±ï¿½ä£ºï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Ê±ï¿½ï¿½Ã¿10MSï¿½ï¿½Ñ¯Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 /*
-º¯Êý¹¦ÄÜ£ºÔö¼Ó´ý·¢ËÍÈÎÎñ
-Ö´ÐÐÊ±¼ä£ºÃ¿0.1S·¢Ò»´Î³£ÓÃÊý¾Ý£¬½ÓÊÕµ½¶ÁÈ¡ÉèÖÃÖµÊ±·¢ËÍÉèÖÃÊý¾Ý
-½ÓÊÕµ½¶ÁÈ¡µ÷ÊÔÊý¾ÝÊ±·¢ËÍµ÷ÊÔÊý¾Ý
-µ÷ÊÔÄ£Ê½ÏÂÃ¿0.1S·¢Ò»´Îµ÷ÊÔÊý¾Ý
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Ö´ï¿½ï¿½Ê±ï¿½ä£ºÃ¿0.1Sï¿½ï¿½Ò»ï¿½Î³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ÖµÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½Ã¿0.1Sï¿½ï¿½Ò»ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 /*
-º¯Êý¹¦ÄÜ£º´®¿Ú·¢ËÍ
-Ö´ÐÐÊ±¼ä£º·¢ËÍÍê³ÉÖÐ¶ÏÊ±ÇÒÓÐÊý¾Ý´ý·¢ËÍ£¬Ã¿10MS¼ì²éÒ»´Î·¢ËÍÊÇ·ñ¿ÕÏÐÇÒÓÐ´ý·¢ËÍÊý¾Ý
-ËµÃ÷£ºÐÂÔö·¢ËÍÈÎÎñÊ±Á¢¼´¼ì²é·¢ËÍÆ÷ÊÇ·ñ¿ÕÏÐ
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½
+Ö´ï¿½ï¿½Ê±ï¿½ä£ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½Í£ï¿½Ã¿10MSï¿½ï¿½ï¿½Ò»ï¿½Î·ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é·¢ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 */
 /*
-º¯Êý¹¦ÄÜ£º¿ØÖÆ²ÎÊý¶ÁÈ¡²¢ÐÞ¸Ä
-Ö´ÐÐÊ±¼ä£º¿ØÖÆ²ÎÊýÐÞ¸Äºó¡¢³õÊ¼»¯
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Þ¸ï¿½
+Ö´ï¿½ï¿½Ê±ï¿½ä£ºï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½Þ¸Äºó¡¢³ï¿½Ê¼ï¿½ï¿½
 */
 /*
-º¯Êý¹¦ÄÜ£º¿ØÖÆ²ÎÊý±£´æ
-½ÓÊÕµ½¿ØÖÆ²ÎÊýÇÒÐÞ¸ÄÊ±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½Ê±
 */
 /*
-º¯Êý¹¦ÄÜ£ºÓÍÃÅÊä³ö¼ÆËã£¨£©
-Ö´ÐÐÊ±¼ä£ºÃ¿50MS£¬»ò¸ù¾ÝADCÉ¨ÃèÖÜÆÚÈ·¶¨
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£¨ï¿½ï¿½
+Ö´ï¿½ï¿½Ê±ï¿½ä£ºÃ¿50MSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ADCÉ¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
 */
 /*
-º¯Êý¹¦ÄÜ£ºÓÍÃÅË³»¬¿ØÖÆ
-Ö´ÐÐÊ±¼ä£ºÓë¶æ»úÏìÓ¦ÆµÂÊÖÂ
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Ö´ï¿½ï¿½Ê±ï¿½ä£ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦Æµï¿½ï¿½ï¿½ï¿½
 */
 /*
-º¯Êý¹¦ÄÜ£ºÄ£Ê½ÑÓÊ±ÇÐ»»¡¢CDIµçÔ´¿ØÖÆ¡¢×´Ì¬Ö¸Ê¾µÆ¿ØÖÆ
-Ö´ÐÐÊ±¼ä£ºÃ¿10MS
-ËµÃ÷£ºÇÐµ½ÊÖ¶¯×Ô¶¯Ä£Ê½ÑÓÊ±0.5S£¬ÇÐµ½Ï¨»ðÄ£Ê½ÑÓÊ±2S
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½Ä£Ê½ï¿½ï¿½Ê±ï¿½Ð»ï¿½ï¿½ï¿½CDIï¿½ï¿½Ô´ï¿½ï¿½ï¿½Æ¡ï¿½×´Ì¬Ö¸Ê¾ï¿½Æ¿ï¿½ï¿½ï¿½
+Ö´ï¿½ï¿½Ê±ï¿½ä£ºÃ¿10MS
+Ëµï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ö¶ï¿½ï¿½Ô¶ï¿½Ä£Ê½ï¿½ï¿½Ê±0.5Sï¿½ï¿½ï¿½Ðµï¿½Ï¨ï¿½ï¿½Ä£Ê½ï¿½ï¿½Ê±2S
 */
 //
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint32_t loop_idx100ms=0;
+uint32_t loop_idx500ms=0;
+//ECU_Info ecu_info;
 /* USER CODE END 0 */
 
 /**
@@ -213,37 +214,48 @@ int main(void)
 	MX_EXIT_Init();
 	MX_DMA_Init();
 	MX_ADC1_Init();
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 5);
-
+//	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 5);
+	MX_SDIO_SD_Init();
+	MX_FATFS_Init();
+	Log_Init();
 	MX_USART2_UART_Init();
-//	MX_SDIO_MMC_Init();
-//	MX_FATFS_Init();
 	MX_TIM3_Init();
-	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
-	TIM3->CCR1 = 150;
 	MX_TIM7_Init();
-	HAL_TIM_Base_Start_IT(&htim7);//Æô¶¯Ê±¼ä´Á¶¨Ê±Æ÷
-	CDI_POWER_ENABLE;
 //	MX_TIM5_Init();
 	MX_TIM6_Init();
-	HAL_TIM_Base_Start_IT(&htim6);
-	/* USER CODE BEGIN 2 */
-
-	/* USER CODE END 2 */
-
-	/* Infinite loop */
-	/* USER CODE BEGIN WHILE */
+	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
+//	HAL_TIM_Base_Start_IT(&htim6);
+	HAL_TIM_Base_Start_IT(&htim7);//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 	while (1)
 	{
-		while(Wait_processing(1000));
-//		Main_loop_1MS_First();				 
-		loop_idx500ms++;
-		if(loop_idx500ms>=500) 					 		//Ö÷Ñ­»·ÖÜÆÚÎª400HZ£¬·ÖÆµ¿ÉÒÔµÃµ½¸÷ÔËÐÐÖÜÆÚµÄÂÖÑ¯º¯Êý¡£
+//		while(Wait_processing(2000)){}//ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª50HZï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ÔµÃµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		HAL_Delay(20);
+		loop_idx100ms+=20;
+		if(loop_idx100ms>=100)
+		{
+			loop_idx100ms=0;
+			uint64_t _systime = GetMicros();
+			ECU_Info _ecu_info;
+			_ecu_info.voltage_set = ADC_Value[0];
+			_ecu_info.voltage = ADC_Value[0];
+			_ecu_info.current_used = ADC_Value[1];
+			_ecu_info.current_charge = ADC_Value[2];
+			_ecu_info.pwm_in_mode = pwm_in_mode_plus;
+			_ecu_info.pwm_in_throttle = pwm_in_throttle_plus;
+			_ecu_info.pwm_max_set = pwm_in_throttle_plus;
+			_ecu_info.pwm_min_set = pwm_in_throttle_plus;
+			_ecu_info.pwm_out_throttle = TIM3->CCR1;
+			_ecu_info.servo_direction = pwm_in_mode_plus;
+			_ecu_info.motor_speed = pwm_in_throttle_plus;
+			Write_ECU(_systime,&_ecu_info);
+		}
+		loop_idx500ms+=20;
+		if(loop_idx500ms>=500)
 		{
 			loop_idx500ms=0;
 			HAL_GPIO_TogglePin(GPIOB, BLUE_Pin|GREED_Pin|RED_Pin);
-//			Main_loop_10MS_First();  
-		}////////////////////////////////////////   //200HZ	 
+//			Main_loop_500MS_First();  
+		}
 	}
 	/* USER CODE END 3 */
 }
