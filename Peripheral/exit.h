@@ -32,22 +32,16 @@
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
-#define MODE_IN_Pin 			GPIO_PIN_0
-#define MODE_IN_GPIO_Port 		GPIOB
-#define THROTTLE_IN_Pin 		GPIO_PIN_1
-#define THROTTLE_IN_GPIO_Port 	GPIOB
 #define SPEED_IN_Pin 			GPIO_PIN_15
 #define SPEED_IN_GPIO_Port 		GPIOB
 
-#define PWM_MODE				HAL_GPIO_ReadPin(MODE_IN_GPIO_Port,MODE_IN_Pin)
-#define PWM_THROTTLE			HAL_GPIO_ReadPin(THROTTLE_IN_GPIO_Port,THROTTLE_IN_Pin)
 #define PWM_SPEED				HAL_GPIO_ReadPin(SPEED_IN_GPIO_Port,SPEED_IN_Pin)
 /* USER CODE END Private defines */
 
 void MX_EXIT_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-extern int64_t pwm_in_mode_plus,pwm_in_throttle_plus,pwm_in_speed_plus;
+extern int64_t pwm_in_speed_plus;
 
 /* USER CODE END Prototypes */
 

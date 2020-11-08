@@ -33,13 +33,12 @@
 extern ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN Private defines */
-
+extern uint32_t ADC_Value[5];
 /* USER CODE END Private defines */
 
 void MX_ADC1_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-extern uint32_t ADC_Value[5];
 
 /* USER CODE END Prototypes */
 

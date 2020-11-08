@@ -27,9 +27,11 @@
 #include "usart.h"
 #include "gpio.h"
 #include "exit.h"
+#include "flash_internal.h"
+#include "logger.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Logger.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,6 +51,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+uint32_t loop_idx100ms=0;
+uint32_t loop_idx500ms=0;
 
 /* USER CODE END PV */
 
@@ -60,9 +64,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint32_t loop_idx100ms=0;
-uint32_t loop_idx500ms=0;
-//ECU_Info ecu_info;
+
 /* USER CODE END 0 */
 
 /**
@@ -71,76 +73,81 @@ uint32_t loop_idx500ms=0;
   */
 int main(void)
 {
-	/* USER CODE BEGIN 1 */
+  /* USER CODE BEGIN 1 */
 
-	/* USER CODE END 1 */
+  /* USER CODE END 1 */
 
-	/* MCU Configuration--------------------------------------------------------*/
+  /* MCU Configuration--------------------------------------------------------*/
 
-	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-	HAL_Init();
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
 
-	/* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 
-	/* USER CODE END Init */
+  /* USER CODE END Init */
 
-	/* Configure the system clock */
-	SystemClock_Config();
+  /* Configure the system clock */
+  SystemClock_Config();
 
-	/* USER CODE BEGIN SysInit */
+  /* USER CODE BEGIN SysInit */
+  SystemParameterRAMMapInit();
+  /* USER CODE END SysInit */
 
-	/* USER CODE END SysInit */
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_EXIT_Init();
+  MX_DMA_Init();
+  MX_ADC1_Init();
+  MX_USART2_UART_Init();
+  MX_SDIO_SD_Init();
+  MX_TIM3_Init();
+  MX_TIM6_Init();
+  MX_TIM7_Init();
+  MX_FATFS_Init();
+  MX_TIM2_Init();
+  MX_TIM4_Init();
+  /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim6);    //打开定时器
+  HAL_TIM_Base_Start_IT(&htim7);    //打开定时器
+  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
+  HAL_TIM_IC_Start_IT(&htim2,TIM_CHANNEL_1);
+  HAL_TIM_IC_Start_IT(&htim4,TIM_CHANNEL_2);
+  /* USER CODE END 2 */
 
-	/* Initialize all configured peripherals */
-	MX_GPIO_Init();
-	MX_EXIT_Init();
-	MX_DMA_Init();
-	MX_ADC1_Init();
-//	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 5);
-	MX_SDIO_SD_Init();
-	MX_FATFS_Init();
-	Log_Init();
-	MX_USART2_UART_Init();
-	MX_TIM3_Init();
-	MX_TIM7_Init();
-//	MX_TIM5_Init();
-	MX_TIM6_Init();
-	MX_TIM3_Init();
-	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
-//	HAL_TIM_Base_Start_IT(&htim6);
-	HAL_TIM_Base_Start_IT(&htim7);//启动时间戳定时器
-	while (1)
-	{
-//		while(Wait_processing(2000)){}//主循环周期为50HZ，分频可以得到各运行周期的轮询函数。
-		HAL_Delay(20);
-		loop_idx100ms+=20;
-		if(loop_idx100ms>=100)
-		{
-			loop_idx100ms=0;
-			uint64_t _systime = GetMicros();
-			ECU_Info _ecu_info;
-			_ecu_info.voltage_set = ADC_Value[0];
-			_ecu_info.voltage = ADC_Value[0];
-			_ecu_info.current_used = ADC_Value[1];
-			_ecu_info.current_charge = ADC_Value[2];
-			_ecu_info.pwm_in_mode = pwm_in_mode_plus;
-			_ecu_info.pwm_in_throttle = pwm_in_throttle_plus;
-			_ecu_info.pwm_max_set = pwm_in_throttle_plus;
-			_ecu_info.pwm_min_set = pwm_in_throttle_plus;
-			_ecu_info.pwm_out_throttle = TIM3->CCR1;
-			_ecu_info.servo_direction = pwm_in_mode_plus;
-			_ecu_info.motor_speed = pwm_in_throttle_plus;
-			Write_ECU(_systime,&_ecu_info);
-		}
-		loop_idx500ms+=20;
-		if(loop_idx500ms>=500)
-		{
-			loop_idx500ms=0;
-			HAL_GPIO_TogglePin(GPIOB, BLUE_Pin|GREED_Pin|RED_Pin);
-//			Main_loop_500MS_First();  
-		}
-	}
-	/* USER CODE END 3 */
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+    while(!flag_10ms_timer){}
+    flag_10ms_timer = 0;
+    loop_idx100ms+=10;
+    if(loop_idx100ms>=100)
+    {
+        loop_idx100ms=0;
+        uint64_t _systime = GetMicros();
+        ECU_Info _ecu_info;
+        _ecu_info.voltage_set = ADC_Value[0];
+        _ecu_info.voltage = ADC_Value[0];
+        _ecu_info.current_used = ADC_Value[1];
+        _ecu_info.current_charge = ADC_Value[2];
+        _ecu_info.pwm_in_mode = pwm_in_mode;
+        _ecu_info.pwm_in_throttle = pwm_in_throttle;
+        _ecu_info.pwm_max_set = 2000;
+        _ecu_info.pwm_min_set = 1000;
+        _ecu_info.pwm_out_throttle = TIM3->CCR1;
+        _ecu_info.servo_direction = 1;
+        _ecu_info.motor_speed = 1500;
+        Write_ECU(_systime,&_ecu_info);
+    }
+    loop_idx500ms+=10;
+    if(loop_idx500ms>=500)
+    {
+        loop_idx500ms=0;
+        HAL_GPIO_TogglePin(GPIOB, BLUE_Pin|GREED_Pin|RED_Pin);
+    }
+
+  }
+  /* USER CODE END 3 */
 }
 
 /**

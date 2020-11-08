@@ -69,9 +69,6 @@ void Error_Handler(void);
 #define GREED_GPIO_Port GPIOB
 #define RED_Pin GPIO_PIN_14
 #define RED_GPIO_Port GPIOB
-#define SPEED_IN_Pin GPIO_PIN_15
-#define SPEED_IN_GPIO_Port GPIOB
-#define SPEED_IN_EXTI_IRQn EXTI15_10_IRQn
 #define BOARD_LED_Pin GPIO_PIN_6
 #define BOARD_LED_GPIO_Port GPIOC
 #define SDIO_CD_Pin GPIO_PIN_7

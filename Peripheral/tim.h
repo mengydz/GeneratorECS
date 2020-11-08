@@ -30,8 +30,9 @@
 
 /* USER CODE END Includes */
 
+extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
-extern TIM_HandleTypeDef htim5;
+extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim7;
 
@@ -39,18 +40,21 @@ extern TIM_HandleTypeDef htim7;
 
 /* USER CODE END Private defines */
 
+void MX_TIM2_Init(void);
 void MX_TIM3_Init(void);
-void MX_TIM5_Init(void);
+void MX_TIM4_Init(void);
 void MX_TIM6_Init(void);
 void MX_TIM7_Init(void);
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* USER CODE BEGIN Prototypes */
+extern uint32_t pwm_in_mode,pwm_in_throttle;
+extern uint8_t flag_10ms_timer;
+
 uint64_t GetMillis(void);
 uint64_t GetMicros(void);
 uint8_t Wait_processing(uint16_t TMS);
-
 
 /* USER CODE END Prototypes */
 

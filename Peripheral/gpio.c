@@ -20,7 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "gpio.h"
 /* USER CODE BEGIN 0 */
-#include "tim.h"
+
 /* USER CODE END 0 */
 
 /*----------------------------------------------------------------------------*/
@@ -49,7 +49,8 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, IIC_SCL_Pin|BLUE_Pin|GREED_Pin|RED_Pin|CDI_POWER_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, IIC_SCL_Pin|BLUE_Pin|GREED_Pin|RED_Pin
+                          |CDI_POWER_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(BOARD_LED_GPIO_Port, BOARD_LED_Pin, GPIO_PIN_RESET);
@@ -84,6 +85,7 @@ void MX_GPIO_Init(void)
 
 }
 
+/* USER CODE BEGIN 2 */
 
 /* USER CODE END 2 */
 

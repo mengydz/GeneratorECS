@@ -18,7 +18,7 @@
           <Vendor>STMicroelectronics</Vendor>
           <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
-          <Cpu>IRAM(0x20000000-0x2001FFFF) IRAM2(0x10000000-0x1000FFFF) IROM(0x8000000-0x80FFFFF) CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4")</Cpu>
+          <Cpu>IRAM(0x20000000-0x2001FFFF) IRAM2(0x10000000-0x1000FFFF) IROM(0x8000000-0x80FFFFF)  CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4")</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
           <FlashDriverDll></FlashDriverDll>
@@ -313,7 +313,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -589,9 +589,14 @@
           <GroupName>Peripheral</GroupName>
           <Files>
             <File>
-              <FileName>gpio.c</FileName>
+              <FileName>usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Peripheral\gpio.c</FilePath>
+              <FilePath>..\Peripheral\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Peripheral\tim.c</FilePath>
             </File>
             <File>
               <FileName>sdio.c</FileName>
@@ -599,14 +604,14 @@
               <FilePath>..\Peripheral\sdio.c</FilePath>
             </File>
             <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Peripheral\gpio.c</FilePath>
+            </File>
+            <File>
               <FileName>dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Peripheral\dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Peripheral\tim.c</FilePath>
             </File>
             <File>
               <FileName>adc.c</FileName>
@@ -619,9 +624,9 @@
               <FilePath>..\Peripheral\exit.c</FilePath>
             </File>
             <File>
-              <FileName>usart.c</FileName>
+              <FileName>flash_internal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Peripheral\usart.c</FilePath>
+              <FilePath>..\Peripheral\flash_internal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -629,9 +634,9 @@
           <GroupName>Library</GroupName>
           <Files>
             <File>
-              <FileName>logger.c</FileName>
+              <FileName>Logger.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\logger.c</FilePath>
+              <FilePath>..\Library\Logger.c</FilePath>
             </File>
             <File>
               <FileName>fifo_buffer.c</FileName>
