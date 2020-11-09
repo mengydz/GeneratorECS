@@ -324,7 +324,7 @@ void ClearSystemParameter(void)
     SystemParaSave2Flash();
 }
 
-void EncoderLinearCorrectSaveData(uint32_t _pwm_in_mode,uint32_t _pwm_in_throttle)
+void SystemParameterSaveData(uint32_t _pwm_in_mode,uint32_t _pwm_in_throttle)
 {
 	GeneratorSystemParaSaveDataStruct *_system_parameter;
 	_system_parameter = (GeneratorSystemParaSaveDataStruct *)GetFlashMapAddr(FlashInterUserDataAddrBase);

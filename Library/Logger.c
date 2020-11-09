@@ -1,11 +1,13 @@
 #include <string.h>
 #include "Logger.h"
 #include "fatfs.h"
+#include "math.h"
+#include <stdio.h>
 #if defined(USE_RTTHREAD)
 #include <entry.h>
 #endif
 
-#define LOG_FILE_NAME "log1.bin"
+#define LOG_FILE_NAME "log.bin"
 
 FATFS fs;
 FATFS *pfs;
@@ -14,6 +16,7 @@ DWORD fre_clust;
 uint32_t totalSpace, freeSpace;
 FRESULT fres;
 UINT br, bw;
+uint16_t filemax=1,filemin =1;
 
 const struct LogStructure log_structure[] = {
   {
@@ -25,7 +28,6 @@ const struct LogStructure log_structure[] = {
     "TEST", "QH",         "TimeUS,value"
   },
   { LOG_ECU_MSG, sizeof(struct log_ECU), 
-//    "ECU", "QffffffHHHHHHH",   "TimeUS,VoltSet,Volt,CurSet,Curr,CurChar,temp,1,2,3,4,5,6,7"
     "ECU", "QffffffHHHHHHH",   "TimeUS,VS,V,CS,C,CC,temp,ma,mi,ou,im,it,sd,ms"
   }, 
   { LOG_PWM_MSG, sizeof(struct log_PWM), 
@@ -37,36 +39,20 @@ uint8_t Write_Format(const struct LogStructure *s);
 	
 uint8_t WriteBlock(const void *pBuffer, uint16_t size)
 {
-
-//	/* Mount SD Card */
-//  if(f_mount(&fs, "", 0) != FR_OK)
-//    return 1;
-
-//  /* Open file to write */
-//  if(f_open(&fil, LOG_FILE_NAME, FA_OPEN_APPEND | FA_WRITE) != FR_OK)
-//    return 2;
-
   /* Check freeSpace space */
   if(f_getfree("", &fre_clust, &pfs) != FR_OK)
-    return 3;
+    return 1;
 
   totalSpace = (uint32_t)((pfs->n_fatent - 2) * pfs->csize * 0.5);
   freeSpace = (uint32_t)(fre_clust * pfs->csize * 0.5);
 
   /* free space is less than 1kb */
   if(freeSpace < 1)
-    return 4;
+    return 2;
 
   /* Writing*/
   f_write (&fil, pBuffer, size, &bw);
   f_sync(&fil);
-//  /* Close file */
-//  if(f_close(&fil) != FR_OK)
-//    return 5;
-
-//  /* Unmount SDCARD */
-//  if(f_mount(NULL, "", 1) != FR_OK)
-//    return 6;
 
   return 0;
 }
@@ -84,21 +70,80 @@ void Fill_Format(const struct LogStructure *s, struct log_Format *pkt)
   strncpy(pkt->labels, s->labels, sizeof(pkt->labels));
 }
 
+uint16_t transfilename(TCHAR *name)
+{
+    uint8_t filename[14];
+    uint8_t num =0;
+    uint16_t fileindex =0;
+    for(int i = 0; i<14; i++)//数组定长14
+    {
+        if(*(name+i) > 46)
+        {
+          filename[i]= *(name+i);
+        }
+        else
+        {
+            num = i-1;
+            break;
+        }
+    }
+    for(int i = num; i>=0; i--)
+    {
+        fileindex+=(filename[i]-48)*powf(10,num-i);
+    }
+    return fileindex;
+}
+
+FRESULT scan_files(char *path)
+{
+    FRESULT res;
+    DIR dir;
+    static FILINFO fileinfo;
+    uint16_t fileindex  = 0;
+    res = f_opendir(&dir,path);
+    if(res == FR_OK)
+    {
+        while(1)
+        {
+            res = f_readdir(&dir,&fileinfo);
+            if(res !=FR_OK || fileinfo.fname[0] ==0)//读取失败，或者读取结束
+                break;
+            if(fileinfo.fattrib & AM_ARC)//是文件
+            {
+               fileindex = transfilename(fileinfo.fname);    //转为十进制
+               if(fileindex >= filemax)
+               {
+                   filemax = fileindex;
+               }
+               else if(fileindex <= filemin)
+               {
+                   filemin = fileindex;
+               }
+            }
+        }
+    }
+    else
+    {
+        return res;
+    }
+    f_closedir(&dir);
+    return res;
+}
+
 void Log_Init(void)
 {
   uint8_t i;
  
   if(f_mount(&fs, "", 0) != FR_OK)
     return;
-  f_open(&fil, LOG_FILE_NAME, FA_CREATE_ALWAYS | FA_WRITE); 
-//  res = f_open(&fil, LOG_FILE_NAME, FA_CREATE_ALWAYS | FA_WRITE); 
-//  if(res == FR_OK){
-//    f_close(&fil);
-//  } else if(res == FR_EXIST){
-//    f_unlink(LOG_FILE_NAME);
-//  }
-//  if(f_mount(NULL, "", 1) != FR_OK)
-//    return;
+
+  if(scan_files("") != FR_OK)//查找排序
+    return;
+  TCHAR log_name_str[14];
+  filemax++;
+  sprintf((char*)log_name_str,"%04d.bin",filemax);
+
+  f_open(&fil, log_name_str, FA_CREATE_ALWAYS | FA_WRITE); 
   
   for(i = 0; i < ARRAY_SIZE(log_structure); i++) 
   {

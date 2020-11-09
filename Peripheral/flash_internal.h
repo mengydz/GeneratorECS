@@ -42,7 +42,7 @@ typedef struct{
 	uint32_t pwm_in_throttle;
 }__attribute__((packed)) GeneratorSystemParaSaveDataStruct;
 
-#define	FlashInterDataAddrBase					(uint32_t)0x08004000
+#define	FlashInterDataAddrBase					(uint32_t)0x080C0000
 #define FlashInterUserDataAddrBase				FlashInterDataAddrBase
 #define GeneratorSystemParaMemSize				sizeof(GeneratorSystemParaSaveDataStruct)
 
@@ -62,7 +62,7 @@ FlashDriver * GetFlashInternalDriver(void);
 bool SystemParameterRAMMapInit(void);
 void ClearSystemParameter(void);
 bool CheckSystemParameterSaveData(void);
-void EncoderLinearCorrectSaveData(uint32_t _pwm_in_mode,uint32_t _pwm_in_throttle);
+void SystemParameterSaveData(uint32_t _pwm_in_mode,uint32_t _pwm_in_throttle);
 
 #endif
 

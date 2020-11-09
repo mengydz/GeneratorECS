@@ -107,11 +107,15 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 5);
   HAL_TIM_Base_Start_IT(&htim6);    //打开定时器
   HAL_TIM_Base_Start_IT(&htim7);    //打开定时器
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
   HAL_TIM_IC_Start_IT(&htim2,TIM_CHANNEL_1);
   HAL_TIM_IC_Start_IT(&htim4,TIM_CHANNEL_2);
+  Log_Init();
+  SystemParameterSaveData(123,456);
+  CheckSystemParameterSaveData();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -124,7 +128,7 @@ int main(void)
     if(loop_idx100ms>=100)
     {
         loop_idx100ms=0;
-        uint64_t _systime = GetMicros();
+        uint64_t _systime = GetMillis();
         ECU_Info _ecu_info;
         _ecu_info.voltage_set = ADC_Value[0];
         _ecu_info.voltage = ADC_Value[0];
